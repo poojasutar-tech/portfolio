@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>John Doe | Senior Software Engineer</title>
+    <title>Pooja Sutar | Project Lead & Full-Stack Engineer</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,8 +14,8 @@
             --bg: #ffffff;
             --text: #1a1a1a;
             --text-muted: #666666;
-            --accent: #2563eb;
-            --accent-soft: rgba(37, 99, 235, 0.1);
+            --accent: #198754; /* Mint Green */
+            --accent-soft: rgba(25, 135, 84, 0.1);
             --card-bg: #f9fafb;
             --border: #e5e7eb;
             --nav-bg: rgba(255, 255, 255, 0.8);
@@ -27,8 +27,8 @@
             --bg: #0b0f1a;
             --text: #f1f5f9;
             --text-muted: #94a3b8;
-            --accent: #3b82f6;
-            --accent-soft: rgba(59, 130, 246, 0.15);
+            --accent: #198754;
+            --accent-soft: rgba(25, 135, 84, 0.2);
             --card-bg: #161e2d;
             --border: #2d3748;
             --nav-bg: rgba(11, 15, 26, 0.8);
@@ -76,90 +76,49 @@
             border: 1px solid var(--border);
             transition: transform 0.6s var(--ease);
         }
-        .hero-image:hover img { transform: scale(1.02) rotate(1deg); }
 
         .btn {
             display: inline-flex; align-items: center; gap: 0.5rem;
             padding: 0.8rem 2rem; background: var(--accent);
             color: white; text-decoration: none; border-radius: 10px;
             font-weight: 600; transition: var(--transition);
-            box-shadow: 0 4px 0px rgba(0,0,0,0.1);
         }
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
-            filter: brightness(1.1);
+            box-shadow: 0 10px 20px rgba(25, 135, 84, 0.2);
         }
-        .btn:active { transform: translateY(0); box-shadow: none; }
 
-        /* --- New Experience Section --- */
-        .timeline { margin-top: 2rem; border-left: 2px solid var(--border); padding-left: 2rem; }
+        .timeline { border-left: 2px solid var(--border); padding-left: 2rem; }
         .timeline-item { position: relative; margin-bottom: 3rem; }
         .timeline-item::before {
             content: ''; position: absolute; left: calc(-2rem - 6px); top: 0;
             width: 10px; height: 10px; border-radius: 50%; background: var(--accent);
             border: 4px solid var(--bg);
         }
-        .timeline-date { font-size: 0.85rem; font-weight: 700; color: var(--accent); text-transform: uppercase; }
-        .timeline-title { font-size: 1.25rem; font-weight: 700; margin: 0.25rem 0; }
-        .timeline-company { font-weight: 500; color: var(--text-muted); margin-bottom: 1rem; }
+        .timeline-date { font-size: 0.85rem; font-weight: 700; color: var(--accent); }
 
-        /* --- Expanded Tech Badges --- */
-        .tech-category { margin-bottom: 2rem; }
-        .tech-category h4 { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
-        
         .tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; }
         .tech-item {
             padding: 0.75rem; background: var(--card-bg);
             border: 1px solid var(--border); border-radius: 12px;
-            transition: var(--transition); cursor: default; text-align: center;
+            transition: var(--transition); text-align: center; font-size: 0.9rem;
         }
-        .tech-item:hover {
-            border-color: var(--accent); background: var(--accent-soft);
-            color: var(--accent); transform: translateY(-5px);
-        }
+        .tech-item:hover { border-color: var(--accent); color: var(--accent); }
 
-        /* --- Project Card Glassmorphism --- */
         .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2.5rem; }
         .card {
             background: var(--card-bg); border: 1px solid var(--border);
-            border-radius: 24px; padding: 2.5rem;
-            transition: var(--transition); position: relative;
-            overflow: hidden; display: flex; flex-direction: column;
+            border-radius: 24px; padding: 2.5rem; transition: var(--transition);
         }
-        .card::before {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, transparent, var(--accent-soft), transparent);
-            transform: translateX(-100%); transition: 0.6s;
-        }
-        .card:hover::before { transform: translateX(100%); }
-        .card:hover { transform: translateY(-12px); border-color: rgba(59, 130, 246, 0.5); box-shadow: 0 20px 40px -15px rgba(0,0,0,0.3); }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
 
-        /* --- Stats/Social Proof --- */
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 4rem 0; padding: 3rem; background: var(--accent-soft); border-radius: 24px; }
         .stat-item h2 { font-size: 2.5rem; color: var(--accent); }
-        .stat-item p { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
-
-        input, textarea {
-            width: 100%; padding: 1rem; margin-bottom: 1.5rem;
-            border-radius: 12px; border: 1.5px solid var(--border);
-            background: var(--bg); color: var(--text);
-            transition: var(--transition);
-        }
-        input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
-
-        .theme-toggle {
-            background: var(--card-bg); border: 1px solid var(--border);
-            color: var(--text); padding: 0.6rem; border-radius: 10px;
-            cursor: pointer; transition: var(--transition);
-        }
-        .theme-toggle:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
 
         @media (max-width: 768px) {
             .hero { flex-direction: column; text-align: center; padding-top: 6rem; }
-            h1 { font-size: 2.8rem; }
             .nav-links { display: none; }
-            .stats-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .stats-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -167,143 +126,115 @@
 
     <nav>
         <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div style="font-weight: 800; font-size: 1.4rem; letter-spacing: -1px;">JD<span style="color: var(--accent);">.</span></div>
+            <div style="font-weight: 800; font-size: 1.4rem; letter-spacing: -1px;">PS<span style="color: var(--accent);">.</span></div>
             <ul class="nav-links">
-                <li><a href="#about">Experience</a></li>
-                <li><a href="#projects">Work</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
+            <button class="theme-toggle" onclick="toggleTheme()" style="background:none; border:none; cursor:pointer; color:var(--text);">
+                🌓
             </button>
         </div>
     </nav>
 
     <main class="container">
-        
         <section class="hero">
             <div style="flex: 1.2;">
-                <h1 style="font-size: 4rem; margin-bottom: 1.5rem; font-weight: 700;">Shipping scalable code <span style="color: var(--accent)">efficiently.</span></h1>
-                <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 550px;">
-                    Senior Full-Stack Engineer specializing in high-performance architectures, cloud-native systems, and Mentorship.
+                <h1 style="font-size: 3.5rem; margin-bottom: 1.5rem; font-weight: 700; line-height: 1.1;">Engineering <span style="color: var(--accent)">robust solutions</span> for complex systems.</h1>
+                <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 580px;">
+                    Project Lead & Full-Stack Developer specializing in Python/Django, React, and high-scale database architecture. Delivering scalable web applications with precision.
                 </p>
                 <div style="display: flex; gap: 1rem;">
-                    <a href="#projects" class="btn">View Case Studies</a>
-                    <a href="#contact" class="btn" style="background:transparent; border:1px solid var(--border); color:var(--text); box-shadow:none;">Get in Touch</a>
+                    <a href="#projects" class="btn">View My Work</a>
+                    <a href="#contact" class="btn" style="background:transparent; border:1px solid var(--border); color:var(--text);">Connect</a>
                 </div>
             </div>
             <div class="hero-image" style="flex: 0.8; display: flex; justify-content: flex-end;">
-                <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="Developer Portfolio">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Pooja Sutar Profile">
             </div>
         </section>
 
         <section id="experience" style="padding: 4rem 0;">
-            <div style="margin-bottom: 3rem;">
-                <h2 style="font-size: 2.2rem;">Professional Journey</h2>
-                <p style="color: var(--text-muted);">A history of solving complex engineering challenges.</p>
-            </div>
+            <h2 style="font-size: 2.2rem; margin-bottom: 3rem;">Leadership & Journey</h2>
             <div class="timeline">
                 <div class="timeline-item">
-                    <div class="timeline-date">2021 — PRESENT</div>
-                    <div class="timeline-title">Senior Software Architect</div>
-                    <div class="timeline-company">TechFlow Solutions • Seattle, WA</div>
-                    <p style="color: var(--text-muted);">Leading a team of 12 engineers in migrating legacy monolithic systems to a gRPC-based microservices architecture. Improved system throughput by 40%.</p>
+                    <div class="timeline-date">CURRENT</div>
+                    <div class="timeline-title">Project Lead & Full-Stack Developer</div>
+                    <div class="timeline-company">Software Engineering Team</div>
+                    <p style="color: var(--text-muted);">Leading development teams through complex SDLC cycles. Specialized in architecting modular systems and mentoring junior developers to maintain high-quality code standards.</p>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-date">2018 — 2021</div>
-                    <div class="timeline-title">Full-Stack Engineer</div>
-                    <div class="timeline-company">CloudScale Inc • Remote</div>
-                    <p style="color: var(--text-muted);">Architected a real-time analytics dashboard using React and WebSocket, reducing data latency from 5s to < 200ms for enterprise clients.</p>
+                    <div class="timeline-date">PREVIOUS</div>
+                    <div class="timeline-title">Software Engineer (B.E. Graduate)</div>
+                    <p style="color: var(--text-muted);">Focused on building secure, Aadhaar-integrated KYC workflows and healthcare platforms using Python, Django REST Framework, and React.</p>
                 </div>
             </div>
         </section>
 
         <section id="about" style="padding: 4rem 0;">
-            <div style="margin-bottom: 3rem;">
-                <h2 style="font-size: 2rem;">Core Proficiency</h2>
-                <p style="color: var(--text-muted);">Mastering the tools that power the modern web.</p>
-            </div>
-            
+            <h2 style="font-size: 2rem; margin-bottom: 2rem;">Technical Arsenal</h2>
             <div class="tech-category">
-                <h4>Languages & Frameworks</h4>
+                <h4 style="margin-bottom: 1rem; color: var(--text-muted);">CORE STACK</h4>
                 <div class="tech-grid">
-                    <div class="tech-item">Go (Golang)</div>
-                    <div class="tech-item">TypeScript</div>
+                    <div class="tech-item">Python / Django</div>
                     <div class="tech-item">React / Next.js</div>
-                    <div class="tech-item">Node.js</div>
-                    <div class="tech-item">Python</div>
-                </div>
-            </div>
-
-            <div class="tech-category">
-                <h4>Infrastructure & DevOps</h4>
-                <div class="tech-grid">
-                    <div class="tech-item">Kubernetes</div>
-                    <div class="tech-item">AWS / GCP</div>
-                    <div class="tech-item">Docker</div>
-                    <div class="tech-item">Terraform</div>
-                    <div class="tech-item">CI/CD Pipelines</div>
+                    <div class="tech-item">Tailwind CSS v4</div>
+                    <div class="tech-item">MySQL / PostgreSQL</div>
+                    <div class="tech-item">Django REST (DRF)</div>
+                    <div class="tech-item">Aadhaar KYC API</div>
                 </div>
             </div>
         </section>
 
         <div class="stats-grid">
             <div class="stat-item">
-                <h2>8+</h2>
-                <p>YEARS EXPERIENCE</p>
+                <h2>10+</h2>
+                <p>YEARS EXP. MENTALITY</p>
             </div>
             <div class="stat-item">
-                <h2>150+</h2>
-                <p>PROJECTS SHIPPED</p>
+                <h2>30+</h2>
+                <p>DATABASE TABLES ARCHITECTED</p>
             </div>
             <div class="stat-item">
-                <h2>10k+</h2>
-                <p>GITHUB COMMITS</p>
+                <h2>100%</h2>
+                <p>REUSABLE PROCESSES</p>
             </div>
         </div>
 
         <section id="projects" style="padding: 6rem 0;">
-            <div style="margin-bottom: 3rem;">
-                <h2 style="font-size: 2.2rem;">Featured Architecture</h2>
-                <p style="color: var(--text-muted);">Production-ready systems currently in use.</p>
-            </div>
-            
+            <h2 style="font-size: 2.2rem; margin-bottom: 3rem;">Strategic Projects</h2>
             <div class="project-grid">
                 <div class="card">
-                    <h3 style="font-size: 1.5rem;">Global Payment Gateway</h3>
-                    <p>Orchestrated a PCI-compliant payment engine processing $2M+ monthly. Implemented zero-downtime migrations.</p>
-                    <div style="display: flex; gap: 0.5rem; margin-top: auto;">
-                        <span style="color: var(--accent); font-weight: 600; cursor: pointer;">View System Design →</span>
-                    </div>
+                    <h3 style="font-size: 1.4rem; color: var(--accent);">Hospital Management System (HMIS)</h3>
+                    <p style="margin-top: 1rem; color: var(--text-muted);">A massive architecture involving 30+ tables, custom prescription engines, and streamlined OPD/IPD workflows.</p>
                 </div>
-
                 <div class="card">
-                    <h3 style="font-size: 1.5rem;">AI Search Infrastructure</h3>
-                    <p>Leveraged Vector databases and LLMs to provide semantic search across 500k documents with 150ms latency.</p>
-                    <div style="display: flex; gap: 0.5rem; margin-top: auto;">
-                        <span style="color: var(--accent); font-weight: 600; cursor: pointer;">View Repo →</span>
-                    </div>
+                    <h3 style="font-size: 1.4rem; color: var(--accent);">MedCard Platform</h3>
+                    <p style="margin-top: 1rem; color: var(--text-muted);">Healthcare fintech solution featuring subscriber registration, Aadhaar-based KYC, and Razorpay payment integration.</p>
+                </div>
+                <div class="card">
+                    <h3 style="font-size: 1.4rem; color: var(--accent);">AI Diagnosis Engine</h3>
+                    <p style="margin-top: 1rem; color: var(--text-muted);">Designing automated symptom-based diagnostic workflows using AI integration for faster medical assessments.</p>
                 </div>
             </div>
         </section>
 
         <section id="contact" style="padding: 6rem 0;">
             <div style="background: var(--card-bg); padding: 4rem; border-radius: 32px; border: 1px solid var(--border); text-align: center;">
-                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Let's build the future.</h2>
-                <p style="color: var(--text-muted); margin-bottom: 3rem;">Inquiries for senior roles, architectural consulting, or speaking engagements.</p>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Let's discuss a project.</h2>
+                <p style="color: var(--text-muted); margin-bottom: 3rem;">Ready to lead your next high-impact software initiative.</p>
                 <form style="max-width: 500px; margin: 0 auto;">
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea placeholder="Tell me about your project..." rows="4" required></textarea>
-                    <button type="submit" class="btn" style="width: 100%; justify-content: center;">Send Message</button>
+                    <input type="email" placeholder="Email Address" style="width:100%; padding:1rem; margin-bottom:1rem; border-radius:10px; border:1px solid var(--border);">
+                    <textarea placeholder="Your Message" rows="4" style="width:100%; padding:1rem; margin-bottom:1rem; border-radius:10px; border:1px solid var(--border);"></textarea>
+                    <button type="submit" class="btn" style="width: 100%; justify-content: center; cursor:pointer; border:none;">Send Message</button>
                 </form>
             </div>
         </section>
     </main>
 
     <footer style="padding: 5rem 0; text-align: center; border-top: 1px solid var(--border);">
-        <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 John Doe. Precision-engineered in Seattle.</p>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Pooja Sutar. Built with React & Django Expertise.</p>
     </footer>
 
     <script>
@@ -313,8 +244,6 @@
             html.setAttribute('data-theme', isDark ? 'light' : 'dark');
             localStorage.setItem('theme', isDark ? 'light' : 'dark');
         }
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
 </body>
 </html>
