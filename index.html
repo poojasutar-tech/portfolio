@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 :root{
   --bg:#0b0e14;
@@ -194,6 +195,67 @@ h2{font-family:'Sora',sans-serif;font-size:1.85rem;font-weight:700;letter-spacin
 
 footer{padding:2.5rem 0;text-align:center;}
 footer p{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--muted);}
+
+/* ---------- 3D HERO SCENE ---------- */
+#hero-canvas{
+  position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;opacity:0.9;
+}
+.hero{position:relative;}
+
+/* ---------- PHOTO (3D tilt) ---------- */
+.photo-wrap{
+  position:relative;perspective:900px;display:flex;justify-content:center;
+}
+.photo-card{
+  width:280px;height:280px;border-radius:24px;border:1px solid var(--line);
+  background:var(--panel);overflow:hidden;position:relative;
+  transform-style:preserve-3d;transition:transform 0.15s ease-out, box-shadow 0.3s ease;
+  box-shadow:0 30px 60px -25px rgba(0,0,0,0.7);
+}
+.photo-card img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-card .avatar-fallback{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-family:'Sora',sans-serif;font-weight:800;font-size:5rem;color:var(--accent);
+  background:radial-gradient(circle at 30% 20%, var(--accent-dim), var(--panel) 70%);
+}
+.photo-card::after{
+  content:'';position:absolute;inset:0;border-radius:24px;
+  background:linear-gradient(135deg, rgba(55,230,176,0.18), transparent 60%);
+  pointer-events:none;
+}
+.photo-card:hover{box-shadow:0 35px 70px -20px rgba(55,230,176,0.25);}
+
+/* ---------- SCROLL REVEAL ---------- */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s cubic-bezier(.2,0,0,1), transform 0.7s cubic-bezier(.2,0,0,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-stagger > *{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease, transform 0.6s ease;}
+.reveal-stagger.visible > *{opacity:1;transform:translateY(0);}
+
+/* ---------- TILT CARDS ---------- */
+.project-card, .stack-item, .info-card{transform-style:preserve-3d;will-change:transform;}
+
+/* ---------- HERO TEXT ANIM ---------- */
+.hero h1, .hero p.lead, .hero .cta-row, .eyebrow{
+  opacity:0;transform:translateY(18px);
+  animation:fadeUp 0.8s cubic-bezier(.2,0,0,1) forwards;
+}
+.eyebrow{animation-delay:0.05s;}
+.hero h1{animation-delay:0.15s;}
+.hero p.lead{animation-delay:0.3s;}
+.hero .cta-row{animation-delay:0.45s;}
+.photo-wrap{
+  opacity:0;transform:translateY(18px) scale(0.96);
+  animation:fadeUp 0.9s cubic-bezier(.2,0,0,1) forwards;
+  animation-delay:0.2s;
+}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0) scale(1);}}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal, .reveal-stagger > *, .hero h1, .hero p.lead, .hero .cta-row, .eyebrow, .photo-wrap{
+    animation:none !important;transition:none !important;opacity:1 !important;transform:none !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -214,6 +276,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--mu
 
   <!-- HERO -->
   <section class="hero" style="border-top:none;">
+    <canvas id="hero-canvas"></canvas>
     <div>
       <div class="eyebrow">AVAILABLE FOR NEW PROJECTS</div>
       <h1>I design backend systems that <span class="accent">scale cleanly</span> and frontends that feel fast.</h1>
@@ -224,26 +287,17 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--mu
       </div>
     </div>
 
-    <div class="schema-card">
-      <div class="schema-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span>&nbsp;schema.sql</div>
-      <div class="schema-table">
-        <h4>engineer</h4>
-        <div class="schema-row"><span>name</span><span class="type">"Pooja Sutar"</span></div>
-        <div class="schema-row"><span>role</span><span class="type">"Software Engineer"</span></div>
-        <div class="schema-row"><span>experience</span><span class="type">1+ yrs</span></div>
-        <div class="schema-row"><span>stack</span><span class="type">Django, React, MySQL</span></div>
-      </div>
-      <div class="schema-table dim">
-        <h4>projects</h4>
-        <div class="schema-row"><span>kokan_kinara</span><span class="type">live ●</span></div>
-        <div class="schema-row"><span>medcard</span><span class="type">live ●</span></div>
-        <div class="schema-row"><span>hmis</span><span class="type">30+ tables</span></div>
+    <div class="photo-wrap">
+      <div class="photo-card" id="photo-card">
+        <!-- Replace the src below with your photo, e.g. "profile.jpg" -->
+        <img src="profile.jpg" alt="Pooja Sutar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="avatar-fallback" style="display:none;">PS</div>
       </div>
     </div>
   </section>
 
   <!-- EXPERIENCE -->
-  <section id="experience">
+  <section id="experience" class="reveal">
     <div class="section-head">
       <span class="section-num">01</span>
       <h2>Experience</h2>
@@ -290,7 +344,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--mu
   </section>
 
   <!-- STATS -->
-  <section style="padding-top:0;border-top:none;">
+  <section class="reveal" style="padding-top:0;border-top:none;">
     <div class="stats">
       <div class="stat"><div class="num">1+</div><div class="label">YEARS EXPERIENCE</div></div>
       <div class="stat"><div class="num">30+</div><div class="label">DB TABLES ARCHITECTED</div></div>
@@ -299,12 +353,12 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--mu
   </section>
 
   <!-- PROJECTS -->
-  <section id="projects">
+  <section id="projects" class="reveal">
     <div class="section-head">
       <span class="section-num">02</span>
       <h2>Selected Projects</h2>
     </div>
-    <div class="project-grid">
+    <div class="project-grid reveal-stagger">
 
       <div class="project-card">
         <div class="project-top">
@@ -355,7 +409,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--mu
   </section>
 
   <!-- STACK -->
-  <section id="stack">
+  <section id="stack" class="reveal">
     <div class="section-head">
       <span class="section-num">03</span>
       <h2>Technical Stack</h2>
@@ -377,7 +431,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--mu
   </section>
 
   <!-- EDUCATION / STRENGTHS / LANGUAGES -->
-  <section>
+  <section class="reveal">
     <div class="section-head">
       <span class="section-num">04</span>
       <h2>Background</h2>
@@ -402,7 +456,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--mu
   </section>
 
   <!-- CONTACT -->
-  <section id="contact">
+  <section id="contact" class="reveal">
     <div class="wrap">
       <h2>Let's build something.</h2>
       <p>Open to roles and projects in full-stack development, backend architecture, and API design.</p>
@@ -421,5 +475,100 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--mu
   <p>// built by Pooja Sutar — Django · React · MySQL</p>
 </footer>
 
+<script>
+// ---------- Scroll reveal ----------
+const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.15 });
+revealEls.forEach(el => io.observe(el));
+
+// ---------- Photo 3D tilt ----------
+const photoCard = document.getElementById('photo-card');
+if (photoCard) {
+  photoCard.addEventListener('mousemove', (e) => {
+    const r = photoCard.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    photoCard.style.transform = `rotateY(${x * 16}deg) rotateX(${-y * 16}deg) scale(1.02)`;
+  });
+  photoCard.addEventListener('mouseleave', () => { photoCard.style.transform = 'rotateY(0) rotateX(0) scale(1)'; });
+}
+
+// ---------- Tilt on cards ----------
+document.querySelectorAll('.project-card, .stack-item, .info-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-4px)`;
+  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+});
+
+// ---------- Three.js hero scene: rotating wireframe icosahedron with particles ----------
+(function () {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  const heroSection = canvas.closest('.hero');
+  let width = heroSection.clientWidth, height = heroSection.clientHeight;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(width, height);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+  camera.position.set(0, 0, 10);
+
+  // Wireframe icosahedron (database/network node motif)
+  const geo = new THREE.IcosahedronGeometry(2.6, 1);
+  const wireMat = new THREE.MeshBasicMaterial({ color: 0x37e6b0, wireframe: true, transparent: true, opacity: 0.35 });
+  const mesh = new THREE.Mesh(geo, wireMat);
+  mesh.position.set(3.5, 0, -2);
+  scene.add(mesh);
+
+  // Particle field
+  const particleCount = 90;
+  const positions = new Float32Array(particleCount * 3);
+  for (let i = 0; i < particleCount; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * 16;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 8 - 2;
+  }
+  const particleGeo = new THREE.BufferGeometry();
+  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const particleMat = new THREE.PointsMaterial({ color: 0x37e6b0, size: 0.045, transparent: true, opacity: 0.5 });
+  const particles = new THREE.Points(particleGeo, particleMat);
+  scene.add(particles);
+
+  let mouseX = 0, mouseY = 0;
+  window.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth - 0.5);
+    mouseY = (e.clientY / window.innerHeight - 0.5);
+  });
+
+  function onResize() {
+    width = heroSection.clientWidth; height = heroSection.clientHeight;
+    renderer.setSize(width, height);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', onResize);
+
+  function animate() {
+    requestAnimationFrame(animate);
+    mesh.rotation.x += 0.0022;
+    mesh.rotation.y += 0.0032;
+    particles.rotation.y += 0.0006;
+    camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.03;
+    camera.position.y += (-mouseY * 1.0 - camera.position.y) * 0.03;
+    camera.lookAt(0, 0, 0);
+    renderer.render(scene, camera);
+  }
+  animate();
+})();
+</script>
 </body>
 </html>
