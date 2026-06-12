@@ -1,249 +1,425 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pooja Sutar | Project Lead & Full-Stack Engineer</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pooja Sutar — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0e14;
+  --panel:#11161f;
+  --panel-2:#161c27;
+  --line:#232b3a;
+  --text:#dde3ee;
+  --muted:#8995ab;
+  --accent:#37e6b0;
+  --accent-dim:rgba(55,230,176,0.12);
+  --amber:#f2b84b;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  line-height:1.65;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 1.75rem;}
+.mono{font-family:'JetBrains Mono',monospace;}
 
-    <style>
-        :root {
-            --bg: #ffffff;
-            --text: #1a1a1a;
-            --text-muted: #666666;
-            --accent: #198754; /* Mint Green */
-            --accent-soft: rgba(25, 135, 84, 0.1);
-            --card-bg: #f9fafb;
-            --border: #e5e7eb;
-            --nav-bg: rgba(255, 255, 255, 0.8);
-            --ease: cubic-bezier(0.2, 0, 0, 1);
-            --transition: all 0.4s var(--ease);
-        }
+/* ---------- NAV ---------- */
+nav{
+  position:sticky;top:0;z-index:50;
+  border-bottom:1px solid var(--line);
+  background:rgba(11,14,20,0.85);
+  backdrop-filter:blur(10px);
+}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;}
+.logo{font-family:'Sora',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:-0.02em;}
+.logo span{color:var(--accent);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:0.85rem;
+  font-family:'JetBrains Mono',monospace;letter-spacing:0.02em;
+  transition:color 0.2s ease;
+}
+.nav-links a:hover{color:var(--accent);}
+@media(max-width:760px){.nav-links{display:none;}}
 
-        [data-theme="dark"] {
-            --bg: #0b0f1a;
-            --text: #f1f5f9;
-            --text-muted: #94a3b8;
-            --accent: #198754;
-            --accent-soft: rgba(25, 135, 84, 0.2);
-            --card-bg: #161e2d;
-            --border: #2d3748;
-            --nav-bg: rgba(11, 15, 26, 0.8);
-        }
+/* ---------- HERO ---------- */
+.hero{padding:5.5rem 0 4rem;display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:center;}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--accent);
+  display:flex;align-items:center;gap:0.6rem;margin-bottom:1.25rem;
+}
+.eyebrow::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 0 0 var(--accent);animation:pulse 2s infinite;}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(55,230,176,0.5);}
+  70%{box-shadow:0 0 0 8px rgba(55,230,176,0);}
+  100%{box-shadow:0 0 0 0 rgba(55,230,176,0);}
+}
+h1{
+  font-family:'Sora',sans-serif;font-weight:800;
+  font-size:3rem;line-height:1.15;letter-spacing:-0.02em;
+  margin-bottom:1.25rem;
+}
+h1 .accent{color:var(--accent);}
+.hero p.lead{color:var(--muted);font-size:1.05rem;max-width:520px;margin-bottom:2rem;}
+.cta-row{display:flex;gap:0.9rem;flex-wrap:wrap;}
+.btn{
+  font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:500;
+  padding:0.8rem 1.5rem;border-radius:8px;text-decoration:none;
+  display:inline-flex;align-items:center;gap:0.5rem;
+  transition:transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.btn-primary{background:var(--accent);color:#04140f;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(55,230,176,0.25);}
+.btn-ghost{border:1px solid var(--line);color:var(--text);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+/* ---------- SCHEMA CARD (signature element) ---------- */
+.schema-card{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  font-family:'JetBrains Mono',monospace;font-size:0.8rem;overflow:hidden;
+  box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+}
+.schema-head{
+  display:flex;align-items:center;gap:0.5rem;padding:0.75rem 1rem;
+  border-bottom:1px solid var(--line);background:var(--panel-2);color:var(--muted);
+}
+.schema-head .dot{width:9px;height:9px;border-radius:50%;background:#3a4456;}
+.schema-table{padding:0.85rem 1rem;}
+.schema-table h4{color:var(--accent);font-size:0.8rem;margin-bottom:0.5rem;font-weight:600;}
+.schema-row{
+  display:flex;justify-content:space-between;padding:0.3rem 0;
+  color:var(--text);border-bottom:1px dashed var(--line);
+}
+.schema-row:last-child{border-bottom:none;}
+.schema-row .type{color:var(--muted);}
+.schema-table.dim{opacity:0.45;}
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+/* ---------- SECTION GENERIC ---------- */
+section{padding:4.5rem 0;border-top:1px solid var(--line);}
+.section-head{display:flex;align-items:baseline;gap:1rem;margin-bottom:2.5rem;}
+.section-num{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:0.85rem;}
+h2{font-family:'Sora',sans-serif;font-size:1.85rem;font-weight:700;letter-spacing:-0.01em;}
 
-        nav {
-            position: sticky; top: 0; z-index: 1000;
-            background: var(--nav-bg);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            height: 70px; display: flex; align-items: center;
-        }
+/* ---------- EXPERIENCE TIMELINE ---------- */
+.exp-item{display:grid;grid-template-columns:160px 1fr;gap:2rem;margin-bottom:3rem;}
+.exp-item:last-child{margin-bottom:0;}
+.exp-meta{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--muted);}
+.exp-meta .status{
+  display:inline-block;margin-top:0.5rem;padding:0.2rem 0.6rem;border-radius:6px;
+  background:var(--accent-dim);color:var(--accent);font-size:0.72rem;
+}
+.exp-role{font-family:'Sora',sans-serif;font-weight:700;font-size:1.15rem;margin-bottom:0.2rem;}
+.exp-org{color:var(--muted);font-size:0.9rem;margin-bottom:0.9rem;}
+.exp-org a{color:var(--accent);text-decoration:none;}
+.exp-list{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
+.exp-list li{
+  position:relative;padding-left:1.2rem;color:var(--text);font-size:0.95rem;
+}
+.exp-list li::before{
+  content:'›';position:absolute;left:0;color:var(--accent);font-family:'JetBrains Mono',monospace;
+}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.9rem;}
+.tag{
+  font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);
+  border:1px solid var(--line);padding:0.2rem 0.55rem;border-radius:6px;
+}
+@media(max-width:760px){.exp-item{grid-template-columns:1fr;gap:0.75rem;}}
 
-        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-        .nav-links a { 
-            text-decoration: none; color: var(--text); 
-            font-weight: 500; font-size: 0.9rem; 
-            position: relative; padding: 0.5rem 0;
-            transition: var(--transition);
-        }
+/* ---------- STACK ---------- */
+.stack-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.9rem;}
+.stack-item{
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  padding:1rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.85rem;
+  transition:border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.stack-item:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px);}
+@media(max-width:760px){.stack-grid{grid-template-columns:repeat(2,1fr);}}
 
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: 0; left: 50%;
-            width: 0; height: 2px; background: var(--accent);
-            transition: var(--transition); transform: translateX(-50%);
-        }
-        .nav-links a:hover { color: var(--accent); }
-        .nav-links a:hover::after { width: 100%; }
+/* ---------- STATS ---------- */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.stat{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:1.75rem;text-align:center;
+}
+.stat .num{font-family:'Sora',sans-serif;font-weight:800;font-size:2.2rem;color:var(--accent);}
+.stat .label{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);letter-spacing:0.05em;margin-top:0.35rem;}
+@media(max-width:760px){.stats{grid-template-columns:1fr;}}
 
-        .hero { padding: 10rem 0 6rem; display: flex; align-items: center; gap: 4rem; }
-        
-        .hero-image img { 
-            width: 100%; max-width: 420px; border-radius: 20px; 
-            border: 1px solid var(--border);
-            transition: transform 0.6s var(--ease);
-        }
+/* ---------- PROJECTS ---------- */
+.project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
+.project-card{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:1.5rem;display:flex;flex-direction:column;gap:0.9rem;
+  transition:border-color 0.25s ease, transform 0.25s ease;
+}
+.project-card:hover{border-color:var(--accent);transform:translateY(-4px);}
+.project-top{display:flex;justify-content:space-between;align-items:flex-start;gap:0.5rem;}
+.project-top h3{font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:700;}
+.status-pill{
+  font-family:'JetBrains Mono',monospace;font-size:0.68rem;
+  background:var(--accent-dim);color:var(--accent);border-radius:6px;padding:0.2rem 0.5rem;
+  white-space:nowrap;
+}
+.project-card p{color:var(--muted);font-size:0.92rem;}
+.project-card .tag-row{margin-top:auto;}
+.project-card a.link{
+  font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--accent);text-decoration:none;
+}
 
-        .btn {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.8rem 2rem; background: var(--accent);
-            color: white; text-decoration: none; border-radius: 10px;
-            font-weight: 600; transition: var(--transition);
-        }
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(25, 135, 84, 0.2);
-        }
+/* ---------- EDUCATION / LANG / STRENGTH ---------- */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+@media(max-width:760px){.grid-2{grid-template-columns:1fr;}}
+.info-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.5rem;}
+.info-card h4{font-family:'Sora',sans-serif;font-size:1rem;margin-bottom:0.75rem;color:var(--accent);}
+.info-card p{color:var(--muted);font-size:0.9rem;}
+.lang-row{display:flex;flex-wrap:wrap;gap:0.5rem;}
 
-        .timeline { border-left: 2px solid var(--border); padding-left: 2rem; }
-        .timeline-item { position: relative; margin-bottom: 3rem; }
-        .timeline-item::before {
-            content: ''; position: absolute; left: calc(-2rem - 6px); top: 0;
-            width: 10px; height: 10px; border-radius: 50%; background: var(--accent);
-            border: 4px solid var(--bg);
-        }
-        .timeline-date { font-size: 0.85rem; font-weight: 700; color: var(--accent); }
+/* ---------- CONTACT ---------- */
+#contact .wrap{
+  border:1px solid var(--line);border-radius:16px;padding:3rem;
+  background:linear-gradient(180deg, var(--panel), var(--bg));
+  text-align:center;
+}
+#contact h2{margin-bottom:0.75rem;}
+#contact p{color:var(--muted);margin-bottom:1.75rem;}
+.contact-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;}
 
-        .tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; }
-        .tech-item {
-            padding: 0.75rem; background: var(--card-bg);
-            border: 1px solid var(--border); border-radius: 12px;
-            transition: var(--transition); text-align: center; font-size: 0.9rem;
-        }
-        .tech-item:hover { border-color: var(--accent); color: var(--accent); }
-
-        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2.5rem; }
-        .card {
-            background: var(--card-bg); border: 1px solid var(--border);
-            border-radius: 24px; padding: 2.5rem; transition: var(--transition);
-        }
-        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
-
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 4rem 0; padding: 3rem; background: var(--accent-soft); border-radius: 24px; }
-        .stat-item h2 { font-size: 2.5rem; color: var(--accent); }
-
-        @media (max-width: 768px) {
-            .hero { flex-direction: column; text-align: center; padding-top: 6rem; }
-            .nav-links { display: none; }
-            .stats-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+footer{padding:2.5rem 0;text-align:center;}
+footer p{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--muted);}
+</style>
 </head>
 <body>
 
-    <nav>
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div style="font-weight: 800; font-size: 1.4rem; letter-spacing: -1px;">PS<span style="color: var(--accent);">.</span></div>
-            <ul class="nav-links">
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="theme-toggle" onclick="toggleTheme()" style="background:none; border:none; cursor:pointer; color:var(--text);">
-                🌓
-            </button>
+<nav>
+  <div class="wrap">
+    <div class="logo">pooja<span>.dev</span></div>
+    <ul class="nav-links">
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#stack">stack</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;">
+    <div>
+      <div class="eyebrow">AVAILABLE FOR NEW PROJECTS</div>
+      <h1>I design backend systems that <span class="accent">scale cleanly</span> and frontends that feel fast.</h1>
+      <p class="lead">Software Engineer focused on Python/Django REST Framework, React, and relational database architecture — turning multi-module products into well-structured, maintainable systems.</p>
+      <div class="cta-row">
+        <a href="#projects" class="btn btn-primary">View Projects →</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+
+    <div class="schema-card">
+      <div class="schema-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span>&nbsp;schema.sql</div>
+      <div class="schema-table">
+        <h4>engineer</h4>
+        <div class="schema-row"><span>name</span><span class="type">"Pooja Sutar"</span></div>
+        <div class="schema-row"><span>role</span><span class="type">"Software Engineer"</span></div>
+        <div class="schema-row"><span>experience</span><span class="type">1+ yrs</span></div>
+        <div class="schema-row"><span>stack</span><span class="type">Django, React, MySQL</span></div>
+      </div>
+      <div class="schema-table dim">
+        <h4>projects</h4>
+        <div class="schema-row"><span>kokan_kinara</span><span class="type">live ●</span></div>
+        <div class="schema-row"><span>medcard</span><span class="type">live ●</span></div>
+        <div class="schema-row"><span>hmis</span><span class="type">30+ tables</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>Experience</h2>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        Present
+        <div class="status">currently here</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Engineer</div>
+        <div class="exp-org">Sanpurnam Infotech Pvt. Ltd · Sangli, India</div>
+        <p style="color:var(--muted);font-size:0.92rem;margin-bottom:0.9rem;">Building production systems across hospitality, healthcare and HR — from live booking platforms to a 30+ table hospital management system.</p>
+        <ul class="exp-list">
+          <li>Built a live hotel booking system for <a href="http://kokankinara.sanpurnam.in/" target="_blank" style="color:var(--accent);text-decoration:none;">Hotel Kokan Kinara</a> with real-time availability, OTP-verified auth, and automated email confirmations</li>
+          <li>Integrated Razorpay payments and built a property management dashboard with live occupancy, booking mix, and revenue charts</li>
+          <li>Directed the Medcard smart health card system — provider management with 25+ structured fields, QR generation, and Razorpay-based registration</li>
+          <li>Spearheaded HMIS, a hospital admin panel with 15+ master modules; architected a standardized BaseCRUD pattern across 30+ MySQL tables</li>
+          <li>Led OPD billing, patient registration, and specialized Radiology / Physiotherapy / Yoga module integrations</li>
+          <li>As Software Engineer Trainee, built an HRMS recruitment pipeline and a role-based leave management system with DRF</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">React.js</span><span class="tag">Django REST Framework</span><span class="tag">MySQL</span>
+          <span class="tag">Razorpay API</span><span class="tag">Tailwind CSS</span><span class="tag">Bootstrap</span>
         </div>
-    </nav>
+      </div>
+    </div>
 
-    <main class="container">
-        <section class="hero">
-            <div style="flex: 1.2;">
-                <h1 style="font-size: 3.5rem; margin-bottom: 1.5rem; font-weight: 700; line-height: 1.1;">Engineering <span style="color: var(--accent)">robust solutions</span> for complex systems.</h1>
-                <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 580px;">
-                    Project Lead & Full-Stack Developer specializing in Python/Django, React, and high-scale database architecture. Delivering scalable web applications with precision.
-                </p>
-                <div style="display: flex; gap: 1rem;">
-                    <a href="#projects" class="btn">View My Work</a>
-                    <a href="#contact" class="btn" style="background:transparent; border:1px solid var(--border); color:var(--text);">Connect</a>
-                </div>
-            </div>
-            <div class="hero-image" style="flex: 0.8; display: flex; justify-content: flex-end;">
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Pooja Sutar Profile">
-            </div>
-        </section>
-
-        <section id="experience" style="padding: 4rem 0;">
-            <h2 style="font-size: 2.2rem; margin-bottom: 3rem;">Leadership & Journey</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-date">CURRENT</div>
-                    <div class="timeline-title">Project Lead & Full-Stack Developer</div>
-                    <div class="timeline-company">Software Engineering Team</div>
-                    <p style="color: var(--text-muted);">Leading development teams through complex SDLC cycles. Specialized in architecting modular systems and mentoring junior developers to maintain high-quality code standards.</p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">PREVIOUS</div>
-                    <div class="timeline-title">Software Engineer (B.E. Graduate)</div>
-                    <p style="color: var(--text-muted);">Focused on building secure, Aadhaar-integrated KYC workflows and healthcare platforms using Python, Django REST Framework, and React.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" style="padding: 4rem 0;">
-            <h2 style="font-size: 2rem; margin-bottom: 2rem;">Technical Arsenal</h2>
-            <div class="tech-category">
-                <h4 style="margin-bottom: 1rem; color: var(--text-muted);">CORE STACK</h4>
-                <div class="tech-grid">
-                    <div class="tech-item">Python / Django</div>
-                    <div class="tech-item">React / Next.js</div>
-                    <div class="tech-item">Tailwind CSS v4</div>
-                    <div class="tech-item">MySQL / PostgreSQL</div>
-                    <div class="tech-item">Django REST (DRF)</div>
-                    <div class="tech-item">Aadhaar KYC API</div>
-                </div>
-            </div>
-        </section>
-
-        <div class="stats-grid">
-            <div class="stat-item">
-                <h2>10+ Months</h2>
-                <p>YEARS EXPERIENCE</p>
-            </div>
-            <div class="stat-item">
-                <h2>30+</h2>
-                <p>DATABASE TABLES ARCHITECTED</p>
-            </div>
-            <div class="stat-item">
-                <h2>100%</h2>
-                <p>REUSABLE PROCESSES</p>
-            </div>
+    <div class="exp-item">
+      <div class="exp-meta">Internship</div>
+      <div>
+        <div class="exp-role">Frontend Web Developer Intern</div>
+        <div class="exp-org">S V MindLogic — Love Satara</div>
+        <ul class="exp-list">
+          <li>Built a responsive frontend for Love Satara, a platform showcasing local attractions, events and cultural highlights of Satara</li>
+          <li>Applied modern CSS and responsive design principles, improving mobile accessibility for tourists across device types</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Bootstrap</span><span class="tag">PHP</span>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <section id="projects" style="padding: 6rem 0;">
-            <h2 style="font-size: 2.2rem; margin-bottom: 3rem;">Strategic Projects</h2>
-            <div class="project-grid">
-                <div class="card">
-                    <h3 style="font-size: 1.4rem; color: var(--accent);">Hospital Management System (HMIS)</h3>
-                    <p style="margin-top: 1rem; color: var(--text-muted);">A massive architecture involving 30+ tables, custom prescription engines, and streamlined OPD/IPD workflows.</p>
-                </div>
-                <div class="card">
-                    <h3 style="font-size: 1.4rem; color: var(--accent);">MedCard Platform</h3>
-                    <p style="margin-top: 1rem; color: var(--text-muted);">Healthcare fintech solution featuring subscriber registration, Aadhaar-based KYC, and Razorpay payment integration.</p>
-                </div>
-                <div class="card">
-                    <h3 style="font-size: 1.4rem; color: var(--accent);">AI Diagnosis Engine</h3>
-                    <p style="margin-top: 1rem; color: var(--text-muted);">Designing automated symptom-based diagnostic workflows using AI integration for faster medical assessments.</p>
-                </div>
-            </div>
-        </section>
+  <!-- STATS -->
+  <section style="padding-top:0;border-top:none;">
+    <div class="stats">
+      <div class="stat"><div class="num">1+</div><div class="label">YEARS EXPERIENCE</div></div>
+      <div class="stat"><div class="num">30+</div><div class="label">DB TABLES ARCHITECTED</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">PRODUCTION SYSTEMS SHIPPED</div></div>
+    </div>
+  </section>
 
-        <section id="contact" style="padding: 6rem 0;">
-            <div style="background: var(--card-bg); padding: 4rem; border-radius: 32px; border: 1px solid var(--border); text-align: center;">
-                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Let's discuss a project.</h2>
-                <p style="color: var(--text-muted); margin-bottom: 3rem;">Ready to lead your next high-impact software initiative.</p>
-                <form style="max-width: 500px; margin: 0 auto;">
-                    <input type="email" placeholder="Email Address" style="width:100%; padding:1rem; margin-bottom:1rem; border-radius:10px; border:1px solid var(--border);">
-                    <textarea placeholder="Your Message" rows="4" style="width:100%; padding:1rem; margin-bottom:1rem; border-radius:10px; border:1px solid var(--border);"></textarea>
-                    <button type="submit" class="btn" style="width: 100%; justify-content: center; cursor:pointer; border:none;">Send Message</button>
-                </form>
-            </div>
-        </section>
-    </main>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>Selected Projects</h2>
+    </div>
+    <div class="project-grid">
 
-    <footer style="padding: 5rem 0; text-align: center; border-top: 1px solid var(--border);">
-        <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Pooja Sutar. Built with React & Django Expertise.</p>
-    </footer>
+      <div class="project-card">
+        <div class="project-top">
+          <h3>Hotel Kokan Kinara</h3>
+          <span class="status-pill">live</span>
+        </div>
+        <p>Hotel management & booking platform with real-time room availability, OTP login, automated email confirmations, Razorpay payments, and a live analytics dashboard for occupancy and revenue.</p>
+        <div class="tag-row">
+          <span class="tag">React.js</span><span class="tag">Django</span><span class="tag">MySQL</span><span class="tag">Razorpay</span>
+        </div>
+        <a href="http://kokankinara.sanpurnam.in/" target="_blank" class="link">kokankinara.sanpurnam.in →</a>
+      </div>
 
-    <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const isDark = html.getAttribute('data-theme') === 'dark';
-            html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-            localStorage.setItem('theme', isDark ? 'light' : 'dark');
-        }
-    </script>
+      <div class="project-card">
+        <div class="project-top">
+          <h3>Medcard — Smart Health Card</h3>
+          <span class="status-pill">production</span>
+        </div>
+        <p>Healthcare fintech platform with subscriber registration, Aadhaar-based KYC, QR code generation for providers, and Razorpay-integrated payments with automated email tracking.</p>
+        <div class="tag-row">
+          <span class="tag">Django</span><span class="tag">REST API</span><span class="tag">MySQL</span><span class="tag">Aadhaar KYC</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <h3>HMIS — Hospital Management</h3>
+          <span class="status-pill">30+ tables</span>
+        </div>
+        <p>Hospital admin panel with 15+ master modules and a standardized BaseCRUD architecture across 30+ tables, covering OPD billing, patient registration, Radiology, Physiotherapy and Yoga workflows.</p>
+        <div class="tag-row">
+          <span class="tag">Django REST Framework</span><span class="tag">React</span><span class="tag">Tailwind CSS</span><span class="tag">MySQL</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <h3>HRMS — Recruitment & Leave</h3>
+          <span class="status-pill">internal tool</span>
+        </div>
+        <p>End-to-end candidate recruitment pipeline from application to onboarding, plus a role-based leave management system for applying, approving and filtering leave requests.</p>
+        <div class="tag-row">
+          <span class="tag">DRF</span><span class="tag">Python</span><span class="tag">MySQL</span><span class="tag">Bootstrap</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2>Technical Stack</h2>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-item">Python</div>
+      <div class="stack-item">Django / DRF</div>
+      <div class="stack-item">React / Next.js</div>
+      <div class="stack-item">JavaScript</div>
+      <div class="stack-item">MySQL</div>
+      <div class="stack-item">PostgreSQL / SQLite</div>
+      <div class="stack-item">MongoDB</div>
+      <div class="stack-item">Tailwind CSS</div>
+      <div class="stack-item">Bootstrap</div>
+      <div class="stack-item">Node.js</div>
+      <div class="stack-item">Git / GitHub</div>
+      <div class="stack-item">Postman</div>
+    </div>
+  </section>
+
+  <!-- EDUCATION / STRENGTHS / LANGUAGES -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2>Background</h2>
+    </div>
+    <div class="grid-2">
+      <div class="info-card">
+        <h4>Education</h4>
+        <p style="color:var(--text);font-weight:600;margin-bottom:0.25rem;">B.E. in Computer Science & Engineering</p>
+        <p>VSM's Somashekhar R Kothiwale Institute of Technology, Nipani, Karnataka</p>
+        <p class="mono" style="margin-top:0.5rem;color:var(--accent);font-size:0.8rem;">Jun '16 — Aug '20 · GPA 6.8</p>
+      </div>
+      <div class="info-card">
+        <h4>Strengths</h4>
+        <p style="margin-bottom:0.5rem;"><strong style="color:var(--text);">Problem Solving</strong> — resolving complex technical bugs and bottlenecks under deadline pressure.</p>
+        <p><strong style="color:var(--text);">Team Leadership</strong> — directing and collaborating with developers to hit project milestones.</p>
+        <h4 style="margin-top:1.25rem;">Languages</h4>
+        <div class="lang-row">
+          <span class="tag">English</span><span class="tag">Hindi</span><span class="tag">Marathi</span><span class="tag">Kannada</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <h2>Let's build something.</h2>
+      <p>Open to roles and projects in full-stack development, backend architecture, and API design.</p>
+      <div class="contact-links">
+        <a href="mailto:poojasutar0918@gmail.com" class="btn btn-primary">poojasutar0918@gmail.com</a>
+        <a href="tel:+917204992423" class="btn btn-ghost">+91 72049 92423</a>
+        <a href="#" class="btn btn-ghost">LinkedIn</a>
+        <a href="#" class="btn btn-ghost">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>// built by Pooja Sutar — Django · React · MySQL</p>
+</footer>
+
 </body>
 </html>
